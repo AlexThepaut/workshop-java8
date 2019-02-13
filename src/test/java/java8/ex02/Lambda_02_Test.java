@@ -28,15 +28,9 @@ public class Lambda_02_Test {
     // end::PersonToAccountMapper[]
 
     // tag::map[]
-    /*private List<Account> map(List<Person> personList, PersonToAccountMapper mapper) {
-        List<Account> map = new ArrayList<Account>();
-        for (Person person : personList) {
-			map.add(mapper.map(person));
-		}
-        return map;
-    }*/
     
-    private <T, R> List<T> map(List<R> personList, GenericMapper mapper){
+    @SuppressWarnings("unchecked")
+	private <T, R> List<T> map(List<R> personList, @SuppressWarnings("rawtypes") GenericMapper mapper){
     	List<T> coucou = new ArrayList<T>();
     	for (R t : personList) {
 			coucou.add((T) mapper.map(t));
