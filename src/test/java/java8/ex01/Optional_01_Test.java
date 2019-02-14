@@ -16,7 +16,12 @@ import static org.junit.Assert.*;
  */
 public class Optional_01_Test {
 
-    class NotFountException extends RuntimeException {}
+    class NotFountException extends RuntimeException {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;}
 
 
     // tag::findMethod[]
@@ -42,7 +47,7 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate)
         // TODO age == 10
-        Optional<Person> result = null;
+        Optional<Person> result = Optional.of(find(personList, p -> p.getAge() == 10));
 
         assertThat(result, instanceOf(Optional.class));
         assertThat(result.isPresent(), is(true));
@@ -59,7 +64,7 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate)
         // TODO age == 400
-        Optional<Person> result = null;
+        Optional<Person> result = Optional.ofNullable(find(personList, p -> p.getAge() == 400));
 
         assertThat(result, instanceOf(Optional.class));
         assertThat(result.isPresent(), is(false));
@@ -73,7 +78,8 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate)
         // TODO age == 10 et firstname == "last_10"
-        Optional<Person> result = null;
+        Optional<Person> result = Optional.ofNullable(find(personList, p -> p.getAge() == 10 && p.getFirstname().equals("last_10")));
+        result.orElseThrow(() -> new NotFountException());
 
         // TODO Utiliser la méthode orElseThrow pour déclencher l'exception NotFountException si non trouvé
     }
@@ -90,7 +96,7 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate, T defaultValue)
         // TODO predicate => age == 400
-        Person result = null;
+        Person result = Optional.ofNullable(find(personList, p -> p.getAge() == 400)).orElse(defaultValue);
 
         assertThat(result, notNullValue());
         assertThat(result, hasProperty("firstname", is("DEFAULT")));
